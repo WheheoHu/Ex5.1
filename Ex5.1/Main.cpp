@@ -136,5 +136,5 @@ void SetupRC()
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
 	// Nice light blue
-	glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
+	glClearColor(0, 0, 0, 1.0f);
 }
