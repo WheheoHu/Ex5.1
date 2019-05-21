@@ -1,7 +1,12 @@
+#include <stdlib.h>
 #include "glut.h"
+#include "Sphere.h"
+
+float lineColor[] = { 0.2f, 0.2f, 0.2f, 1 };
 
 static GLfloat xRot = 0.0f;
 static GLfloat yRot = 0.0f;
+Sphere sp(30, 36, 18);
 
 void ChangeSize(int w, int h);
 void SpecialKeys(int key, int x, int y);
@@ -85,19 +90,10 @@ void RenderScene(void)
 	glPushMatrix();
 	glRotatef(xRot, 1.0f, 0.0f, 0.0f);
 	glRotatef(yRot, 0.0f, 1.0f, 0.0f);
-	glBegin(GL_TRIANGLES);
 
-	glColor3ub(192, 192, 192);
-
-	glVertex3f(15.0f, 0.0f, 15.0f);
-	glVertex3f(0.0f, 15.0f, 15.0f);
-	glVertex3f(0.0f, 0.0f, -15.0f);
-
-	
-	glEnd();
-
-	glPopMatrix();
-
+	glColor3f(1, 0, 0);
+	sp.printSelf();
+	sp.drawWithLines(lineColor);
 	// Display the results
 	glutSwapBuffers();
 }
