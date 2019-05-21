@@ -6,7 +6,8 @@ float lineColor[] = { 0.2f, 0.2f, 0.2f, 1 };
 
 static GLfloat xRot = 0.0f;
 static GLfloat yRot = 0.0f;
-Sphere sp(30, 36, 18);
+Sphere sp_1(30, 15, 10);
+Sphere sp_2(30, 15, 10);
 
 void ChangeSize(int w, int h);
 void SpecialKeys(int key, int x, int y);
@@ -90,10 +91,23 @@ void RenderScene(void)
 	glPushMatrix();
 	glRotatef(xRot, 1.0f, 0.0f, 0.0f);
 	glRotatef(yRot, 0.0f, 1.0f, 0.0f);
-
+	glViewport(0, 0, 400, 400);
 	glColor3f(1, 0, 0);
-	sp.printSelf();
-	sp.drawWithLines(lineColor);
+	sp_1.printSelf();
+	sp_1.drawWithLines(lineColor);
+
+	glViewport(400, 0, 400, 400);
+	glColor3f(1, 1, 0);
+	sp_2.printSelf();
+	sp_2.drawWithLines(lineColor);
+
+	glViewport(0, 400, 400, 400);
+	GLUquadricObj *quadObj = gluNewQuadric();
+	gluCylinder(quadObj,30,30,40,20,20);
+
+	glViewport(400, 400, 400, 400);
+	glColor3f(0, 0, 1);
+	glutSolidCone(30, 40, 20, 10);
 	// Display the results
 	glutSwapBuffers();
 }
@@ -101,6 +115,7 @@ void RenderScene(void)
 void SetupRC()
 {
 	GLfloat ambientLight[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	GLfloat diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };
 
 	glEnable(GL_DEPTH_TEST); // Hidden surface removal
 	glEnable(GL_CULL_FACE);	// Do not calculate inside of jet
@@ -110,7 +125,10 @@ void SetupRC()
 	glEnable(GL_LIGHTING); // Enable lighting
 
 	// Set light model to use ambient light specified by ambientLight
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+	glEnable(GL_LIGHT0);
+
 
 	glEnable(GL_COLOR_MATERIAL); // Enable Material color tracking
 
